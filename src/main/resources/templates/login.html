@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1 align="center">Welcome To The Social Network</h1>
+
+<!--<form align="center" action="./login" method="post">-->
+
+<form align="center" action="./login" method="post">
+
+
+
+
+
+    <p><input type="text" th:field="*{name}" id="email" placeholder="Email" /></p>
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+    <p><input type="text" th:field="*{pass_word}" placeholder="Password"/></p>
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    <p><input type="submit" value="Login" /></p>
+</form>
+
+<a align="center" href="register.jsp">Create New Account</a>
+
+</body>
+</html>

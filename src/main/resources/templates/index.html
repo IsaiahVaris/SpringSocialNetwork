@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>This is the Social Network</h2>
+<div><a href="./profile"><b>Profile</b></a></div>
+<div><a href="./logout"><b>Logout</b></a></div>
+
+<form action="./newpost" method="post">
+    <textarea rows="4" cols="100" name="message_body" placeholder="Share your thoughts..."></textarea>
+    <p><input type="submit" value="Post" style="padding: 5px 10px;"></p>
+</form>
+
+
+<tbody>
+<tr th:each="post: ${allPosts}">
+    <tr>
+    <td th:text="${post.message_body}" />
+</tr>
+<tr>
+    <td th:text="${post.num_of_comments}" />
+    <td th:text="${post.num_of_likes}" />
+</tr>
+<tr></tr>
+
+
+
+
+</tr>
+</tbody>
+
+<th:block th:each="post: ${allPosts}">
+    <div>
+        <p th:text="${post.num_of_comments}"></p>
+<!--            <c:out value="${post.message_body}"></c:out></p>-->
+
+        <p> comments <c:out value="${post.num_of_likes}"></c:out> likes</p>
+
+
+
+
+        <form action="./newcomment?post_id=${post.post_id}" method="post">
+            <textarea rows="2" cols="100" name="comment_body" placeholder="Add comment..."></textarea>
+            <p><input type="submit" value="Comment" style="padding: 5px 10px;"></p>
+        </form>
+
+
+
+
+        <p><a href="./likepost?post_id=${post.post_id}">Like</a> <a href="./unlikepost?post_id=${post.post_id}">Unlike</a></p>
+    </div>
+
+</th:block>
+
+<c:forEach var="post" items="${allPosts}">
+    <div>
+        <p><c:out value="${post.message_body}"></c:out></p>
+
+        <p><c:out value="${post.num_of_comments}"></c:out> comments <c:out value="${post.num_of_likes}"></c:out> likes</p>
+
+
+
+
+
+        <form action="./newcomment?post_id=${post.post_id}" method="post">
+            <textarea rows="2" cols="100" name="comment_body" placeholder="Add comment..."></textarea>
+            <p><input type="submit" value="Comment" style="padding: 5px 10px;"></p>
+        </form>
+
+
+
+
+        <p><a href="./likepost?post_id=${post.post_id}">Like</a> <a href="./unlikepost?post_id=${post.post_id}">Unlike</a></p>
+    </div>
+</c:forEach>
+
+
+</body>
+</html>

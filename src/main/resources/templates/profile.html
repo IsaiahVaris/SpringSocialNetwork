@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<h2>Welcome to your profile <c:out value="${first_name}"></c:out> <c:out value="${last_name}"></c:out></h2>
+<%--from the profile page, user can navigate to the homepage, logout, or delete his/her account --%>
+<div><a href="./home"><b>Home</b></a></div>
+<div><a href="./logout"><b>Logout</b></a></div>
+<div><a href="./deleteaccount"><b>Delete account</b></a></div>
+
+<div>
+    <form action="./newpost" method="post">
+        <textarea rows="4" cols="100" name="message_body" placeholder="Share your thoughts..."></textarea>
+        <p><input type="submit" value="Post" style="padding: 5px 10px;"></p>
+    </form>
+</div>
+<!--<%&#45;&#45;user profile consists of all posts by the individual user with option to edit and delete post&#45;&#45;%>-->
+
+<c:forEach var="post" items="${allUserPosts}">
+    <div>
+        <c:out value="${post.message_body}"></c:out>
+        <p><c:out value="${post.num_of_comments}"></c:out> comments <c:out value="${post.num_of_likes}"></c:out> likes</p>
+
+        <form action="./editpost?post_id=${post.post_id}" method="post">
+            <textarea rows="1" cols="100" name="message_body" placeholder="Edit post..."></textarea>
+
+            <p><input type="submit" value="Edit" style="padding: 5px 10px;"></p>
+        </form>
+
+        <a href="./deletepost?post_id=${post.post_id}">Delete Post</a>
+        <br>
+    </div>
+</c:forEach>
+
+</body>
+</html>

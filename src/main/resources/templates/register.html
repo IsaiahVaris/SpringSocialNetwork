@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1 align="center">Welcome To The Social Network</h1>
+
+<h3>Create New Social Account:</h3>
+<form align="center"  th:action="@{/adduser}" th:object="${user}" method="post">
+    <p><input type="text" name="first_name" placeholder="First Name" required>
+        <input type="text" name="last_name" placeholder="Last Name" required></p>
+
+    <p><input type="text" name="email" placeholder="Email" required></p>
+    <p><input type="password" name="pass_word" placeholder="Password" required></p>
+    <p><input type="password" name="confirm_pass_word" placeholder="Re-enter Password" required></p>
+    <p>
+        Gender:
+        <input type="radio" name="gender" value="M" checked>Male
+        <input type="radio" name="gender" value="F">Female
+    </p>
+    <p>Date of Birth: <input type="date" name="birth_day" required></p>
+    <p><input type="submit" value="Register"/></p>
+</form
+
+</body>
+</html>
