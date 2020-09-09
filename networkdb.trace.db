@@ -241,3 +241,6 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:/Users/Isaia
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 163 more
+2020-09-09 16:51:34 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USERSPOSTS" not found; SQL statement:
+SELECT * FROM USERSPOSTS [42102-200]

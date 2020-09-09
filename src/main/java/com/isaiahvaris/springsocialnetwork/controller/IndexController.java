@@ -12,9 +12,9 @@ public class IndexController {
     UserServiceImpl userService;
 
 
-    @GetMapping("/")
-    public String showUsers(Model model) {
-        model.addAttribute("users", userService.getUsers());
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String showUsers(Model model) {
+//        model.addAttribute("users", userService.getUsers());
+//        return "index";
+//    }
 }

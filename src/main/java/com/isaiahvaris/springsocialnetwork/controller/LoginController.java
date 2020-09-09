@@ -20,14 +20,13 @@ public class LoginController {
     UserServiceImpl userService;
     public static User currentUser;
 
-    @PostMapping("/register")
+    @GetMapping("/register")
     public String signUpForm(User user) {
         return "register";
     }
 
     @GetMapping("/login")
-    public String login(User user, Model model) {
-        model.addAttribute("user", user);
+    public String login(User user) {
         return "login";
     }
 

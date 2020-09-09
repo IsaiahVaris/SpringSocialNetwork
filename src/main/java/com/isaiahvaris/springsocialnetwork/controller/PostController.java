@@ -1,5 +1,6 @@
 package com.isaiahvaris.springsocialnetwork.controller;
 
+import com.isaiahvaris.springsocialnetwork.model.Comment;
 import com.isaiahvaris.springsocialnetwork.model.Post;
 import com.isaiahvaris.springsocialnetwork.model.User;
 import com.isaiahvaris.springsocialnetwork.serviceImpl.PostServiceImpl;
@@ -7,23 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostController {
     @Autowired
     PostServiceImpl postService;
 
-    @PostMapping("/")
+    @GetMapping("/")
     public String showPosts(Model model) {
-        model.addAttribute("allposts", postService.getPosts());
+        List<Post> posts = new ArrayList<>();
+        postService.getPosts().forEach(posts::add);
+        model.addAttribute("allposts", posts);
         model.addAttribute("post", new Post());
-
+        model.addAttribute("comment", new Comment());
+        System.out.println("leaving post");
         return "index";
     }
 

@@ -26,10 +26,6 @@ public class Post {
     @NotBlank(message = "First name is required")
     private String messageBody;
 
-//    @Column(defaultValue = {@UniqueConstraint(columnNames = {"user_id", "post_id"})})
-//    private int num_of_comments = 0;
-//    private int num_of_likes = 0;
-
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 

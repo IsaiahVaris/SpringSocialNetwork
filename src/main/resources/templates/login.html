@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login | The Social Network</title>
@@ -7,31 +7,18 @@
 </head>
 <body>
 
-<!--Div for Background-->
-
-    <!--Div for Centered Text & Input-->
-<!--    <div class="centered">-->
-<!--        <p class="firstLine"> E &nbsp; M &nbsp; A &nbsp; I &nbsp; L &nbsp; . &nbsp; M &nbsp; E </p>-->
-<!--        <p class="secondLine">The Simplest Email Client Ever</p>-->
-<!--        <p> <input class="InputStyle" placeholder="Email me when it's ready &#xf0e0; " style="font-family:Arial, FontAwesome" type="text"> </p>-->
-<!--    </div>-->
-<!--    &lt;!&ndash;Div for bottom Icons&ndash;&gt;-->
-<!--    <div class="social-btn"> <a href="#" title="Facebook"><i class="fa fa-facebook"></i></a> <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>-->
-<!--    </div>-->
 
 
 <div class="bg text-center">
 <h1 class="firstLine">Welcome To The Social Network</h1>
-
-<!--<form align="center" action="./login" method="post">-->
 
 <form align="center" th:action="@{/loginuser}" th:object="${user}" method="post">
 
     <p><input class="InputStyle" type="text" th:field="*{email}" id="email" placeholder="Email" style="font-family:Arial, FontAwesome"></p>
     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 
-    <p><input class="InputStyle" type="password" th:field="*{pass_word}" placeholder="Password" style="font-family:Arial, FontAwesome"></p>
-    <span th:if="${#fields.hasErrors('pass_word')}" th:errors="*{pass_word}"></span>
+    <p><input class="InputStyle" type="password" th:field="*{passWord}" placeholder="Password" style="font-family:Arial, FontAwesome"></p>
+    <span th:if="${#fields.hasErrors('pass_word')}" th:errors="*{passWord}"></span>
     <p><input class="InputStyle" type="submit" value="Login" /></p>
 </form>
 
