@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--th:text="${'Hi, ' + user.firstName-->
+<h2> Welcome to your profile</h2>
+
+<!--from the profile page, user can navigate to the homepage, logout, or delete his/her account-->
+<div><a th:href="@{/index}"><b>Home</b></a></div>
+<div><a href="./editprofile"><b>Edit profile</b></a></div>
+<div><a th:href="@{/logout}"><b>Logout</b></a></div>
+<div><a th:href="@{/deleteaccount}"><b>Delete account</b></a></div>
+
+<div>
+    <form action="#" th:action="@{/newpost}" th:object="post" method="post">
+        <textarea rows="4" cols="100" name="message_body" placeholder="Share your thoughts..."></textarea>
+        <p><input type="submit" value="Post" style="padding: 5px 10px;"></p>
+    </form>
+</div>
+<!--<%&#45;&#45;user profile consists of all posts by the individual user with option to edit and delete post&#45;&#45;%>-->
+
+    <div th:each="post : ${allUserPosts}">
+        <p th:text="${post.messageBody}"></p>
+        <p th:text="${post.comments.size() + ' comments ' + post.likes.size() + ' likes'}"></p>
+
+        <form action="#" th:action="@{/editpost/{id}(id=${post.postId})}" th:object="post" method="post">
+            <textarea rows="1" cols="100" name="messageBody" placeholder="Edit post..."></textarea>
+
+            <p><input type="submit" value="Edit" style="padding: 5px 10px;"></p>
+        </form>
+
+
+        <a th:href="@{/deletepost/{id}(id=${post.postId})}">Delete Post</a>
+        <br>
+    </div>
+
+</body>
+</html>

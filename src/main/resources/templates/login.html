@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | The Social Network</title>
+<!--    <link rel='stylesheet' href='style.css' type='text/css'/>-->
+</head>
+<body>
+
+
+
+<div class="bg text-center">
+<h1 class="firstLine">Welcome To The Social Network</h1>
+
+<form align="center" th:action="@{/loginuser}" th:object="${user}" method="post">
+
+    <p><input class="InputStyle" type="text" th:field="*{email}" id="email" placeholder="Email" style="font-family:Arial, FontAwesome"></p>
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+    <p><input class="InputStyle" type="password" th:field="*{passWord}" placeholder="Password" style="font-family:Arial, FontAwesome"></p>
+    <span th:if="${#fields.hasErrors('pass_word')}" th:errors="*{passWord}"></span>
+    <p><input class="InputStyle" type="submit" value="Login" /></p>
+</form>
+
+<a class="firstLine" href="./register.html">Create New Account</a>
+</div>
+
+</body>
+</html>

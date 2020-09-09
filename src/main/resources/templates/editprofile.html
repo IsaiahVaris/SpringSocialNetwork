@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+</head>
+<body>
+<form action="#"
+      th:action="@{/update/{id}(id=${user.id})}"
+      th:object="${user}"
+      method="post">
+
+
+
+    <p><input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name" required>
+        <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name" required></p>
+
+    <p><input type="password" th:field="*{passWord}" id="passWord" placeholder="Password" required></p>
+
+    <p><input type="submit" value="Register"/></p>
+</form>
+
+</body>
+</html>

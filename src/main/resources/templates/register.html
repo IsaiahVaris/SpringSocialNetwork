@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title | The Social Network</title>
+</head>
+<body>
+
+<h1 align="center">Welcome To The Social Network</h1>
+
+<h3>Create New Social Account:</h3>
+<form align="center"  th:action="@{adduser}" th:object="${user}" method="post">
+
+    <p><input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name" required>
+        <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name" required></p>
+    <p><input type="text" th:field="*{email}" id="email" placeholder="Email" required></p>
+
+    <p><input type="password" th:field="*{passWord}" id="passWord" placeholder="Password" required></p>
+
+    <p><input type="password" name="confirm_pass_word" placeholder="Re-enter Password" required></p>
+    <p>
+        Gender:
+        <input type="radio"  th:field="*{gender}" id="male" value="M" checked>Male
+        <input type="radio" th:field="*{gender}" id="female" value="F">Female
+    </p>
+    <p>Date of Birth: <input type="date" th:field="*{birthDay}" id="birthDay" required></p>
+
+    <p><input type="submit" value="Register"/></p>
+</form>
+
+</body>
+</html>

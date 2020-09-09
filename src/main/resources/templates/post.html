@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post | The Social Network</title>
+</head>
+<body>
+<div>
+    <div><a th:href="@{/index}"><b>Home</b></a>
+    <a th:href="@{/profile}"><b>Profile</b></a>
+    <a th:href="@{/logout}"><b>Logout</b></a></div>
+</div>
+
+<div>
+    <p><b th:text="${post.messageBody}"></b></p>
+    <p th:text="${post.comments.size() + ' comments ' + post.likes.size() + ' likes'}"></p>
+    <p><a th:href="@{/likepost/{id}(id=${post.postId})}">Like</a> <a th:href="@{/unlikepost/{id}(id=${post.postId})}">Unlike</a></p>
+
+    <div th:each="comment: ${postcomments}">
+
+        <p th:text="${comment.messageBody}"></p>
+    </div>
+
+    <form action="#"  th:action="@{/newcomment/{id}(id=${post.postId})}" th:object="comment" method="post">
+        <textarea rows="2" cols="100" name="comment_body" placeholder="Add comment..."></textarea>
+        <p><input type="submit" value="Comment" style="padding: 5px 10px;"></p>
+    </form>
+
+</div>
+
+</body>
+</html>
