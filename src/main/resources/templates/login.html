@@ -10,21 +10,17 @@
 
 <!--<form align="center" action="./login" method="post">-->
 
-<form align="center" action="./login" method="post">
+<form align="center" th:action="@{/login}" method="post">
 
-
-
-
-
-    <p><input type="text" th:field="*{name}" id="email" placeholder="Email" /></p>
+    <p><input type="text" th:field="*{email}" id="email" placeholder="Email" /></p>
     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 
-    <p><input type="text" th:field="*{pass_word}" placeholder="Password"/></p>
-    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    <p><input type="password" th:field="*{pass_word}" placeholder="Password"/></p>
+    <span th:if="${#fields.hasErrors('pass_word')}" th:errors="*{pass_word}"></span>
     <p><input type="submit" value="Login" /></p>
 </form>
 
-<a align="center" href="register.jsp">Create New Account</a>
+<a align="center" href="register.html">Create New Account</a>
 
 </body>
 </html>

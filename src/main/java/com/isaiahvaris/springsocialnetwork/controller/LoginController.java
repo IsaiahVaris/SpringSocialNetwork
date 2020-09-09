@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -22,10 +21,19 @@ public class LoginController {
 //        model.addAttribute("users", userService.findUser());
 //        return "index";
 //    }
+
+
     @GetMapping("/register")
     public String signUpForm(User user) {
         return "register";
     }
+
+
+    @PostMapping("/login")
+    public String login(User user) {
+        return "index";
+    }
+
 
 
 //    @GetMapping("edit/{id}")
@@ -53,7 +61,7 @@ public class LoginController {
         if (result.hasErrors()) {
             return "register";
         }
-        userService.saveUser(user);
+        userService.addUser(user);
         return "redirect:/";
     }
 }

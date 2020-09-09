@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean deleteUser(String email) {
-        return userRepository.deleteUserByEmail(email);
+    public void deleteUser(User user) {
+         userRepository.delete(user);
     }
 
 }

@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface PostService {
 
-    void addPost (Post post);
+    Post addPost (Post post);
     Iterable<Post> getPosts ();
-    Optional<User> getPostsByUser(int id);
-    void editPost();
-    Boolean deletePost(int post_id);
+    Iterable<Post> getPostsByUser(User user);
+    Post editPost(Post post, String message_body);
+    void deletePost(Post post);
 }

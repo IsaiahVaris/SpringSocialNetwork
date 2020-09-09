@@ -16,27 +16,31 @@ public class PostServiceImpl implements PostService {
     PostRepository postRepository;
 
     @Override
-    public void addPost(Post post) {
-
+    public Post addPost(Post post) {
+        return postRepository.save(post);
     }
 
     @Override
     public Iterable<Post> getPosts() {
-        return null;
+        return postRepository.findAll();
     }
 
     @Override
-    public Optional<User> getPostsByUser(int id) {
-        return Optional.empty();
+    public Iterable<Post>  getPostsByUser(User user) {
+        return postRepository.findAllByUser(user);
     }
 
     @Override
-    public void editPost() {
+    public Post editPost(Post post, String message_body) {
 
+        post.setMessage_body(message_body);
+
+        return postRepository.save(post);
     }
 
     @Override
-    public Boolean deletePost(int post_id) {
-        return null;
+    public void deletePost(Post post) {
+
+         postRepository.delete(post);
     }
 }

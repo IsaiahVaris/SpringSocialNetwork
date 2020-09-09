@@ -33,8 +33,6 @@ public class User {
     @NotBlank(message = "date of birth is required")
     private Date birth_day;
 
-//    @OneToMany(mappedBy = "user")
-//    private Set<Post> posts = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;

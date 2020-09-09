@@ -18,9 +18,15 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int post_id;
+
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+
+
+
     @NotBlank(message = "First name is required")
     private String message_body;
 
