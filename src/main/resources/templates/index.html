@@ -10,24 +10,23 @@
 <div><a th:href="@{/profile}"><b>Profile</b></a></div>
 <div><a th:href="@{/logout}"><b>Logout</b></a></div>
 
-<form action="#" th:action="@{/newpost}" method="post">
+<form action="#" th:action="@{/newpost}" th:object=${post}" method="post">
     <textarea rows="4" cols="100" name="message_body" placeholder="Share your thoughts..."></textarea>
     <p><input type="submit" value="Post" style="padding: 5px 10px;"></p>
 </form>
 
-<div th:each="post: ${allposts}">
-
+<div th:each="post:${allposts}">
     <p th:text="${post.messageBody}"></p>
     <p th:text="${post.comments.size() + ' comments ' + post.likes.size() + ' likes'}"></p>
 
-    <form action="#"  th:action="@{/newcomment/{id}(id=${post.post_id})}"  method="post">
+    <form action="#"  th:action="@{/newcomment/{id}(id=${post.post_id})}" th:object=${comment}" method="post">
         <textarea rows="2" cols="100" name="comment_body" placeholder="Add comment..."></textarea>
         <p><input type="submit" value="Comment" style="padding: 5px 10px;"></p>
     </form>
 
     <p><a th:href="@{/likepost/{id}(id=${post.postId})}">Like</a> <a th:href="@{/unlikepost/{id}(id=${post.postId})}">Unlike</a></p>
 
-    <a th:href="@{/comments}">View comments</a>
+    <a th:href="@{/postandcomments/{id}(id=${post.postId})}">View comments</a>
 </div>
 
 </body>

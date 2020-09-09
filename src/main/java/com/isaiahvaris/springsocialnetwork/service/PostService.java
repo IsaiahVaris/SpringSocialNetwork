@@ -10,6 +10,6 @@ public interface PostService {
     Post addPost (Post post);
     Iterable<Post> getPosts ();
     Iterable<Post> getPostsByUser(User user);
-    Post editPost(Post post, String message_body);
+    Post editPost(Post post, String messageBody);
     void deletePost(Post post);
 }

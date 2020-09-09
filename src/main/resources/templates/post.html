@@ -21,7 +21,7 @@
         <p th:text="${comment.messageBody}"></p>
     </div>
 
-    <form action="#"  th:action="@{/newcomment/{id}(id=${post.post_id})}"  method="post">
+    <form action="#"  th:action="@{/newcomment/{id}(id=${post.postId})}" th:object="comment" method="post">
         <textarea rows="2" cols="100" name="comment_body" placeholder="Add comment..."></textarea>
         <p><input type="submit" value="Comment" style="padding: 5px 10px;"></p>
     </form>

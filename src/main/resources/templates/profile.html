@@ -5,17 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-
-
-<h2>Welcome to your profile <c:out value="${first_name}"></c:out> <c:out value="${last_name}"></c:out></h2>
+<h2 th:text="${'Hi, ' + user.firstName + ' Welcome to your profile'}" ></h2>
 <%--from the profile page, user can navigate to the homepage, logout, or delete his/her account --%>
-<div><a href="./home"><b>Home</b></a></div>
-<div><a href="./edit-profile"><b>Edit profile</b></a></div>
-<div><a href="./logout"><b>Logout</b></a></div>
-<div><a href="./deleteaccount"><b>Delete account</b></a></div>
+<div><a th:href="@{/index}"><b>Home</b></a></div>
+<div><a href="./editprofile"><b>Edit profile</b></a></div>
+<div><a th:href="@{/logout}"><b>Logout</b></a></div>
+<div><a th:href="@{/deleteaccount}"><b>Delete account</b></a></div>
 
 <div>
-    <form action="./newpost" method="post">
+    <form action="#" th:action="@{/newpost}" th:object="post" method="post">
         <textarea rows="4" cols="100" name="message_body" placeholder="Share your thoughts..."></textarea>
         <p><input type="submit" value="Post" style="padding: 5px 10px;"></p>
     </form>
@@ -23,16 +21,17 @@
 <!--<%&#45;&#45;user profile consists of all posts by the individual user with option to edit and delete post&#45;&#45;%>-->
 
     <div th:each="post : ${allUserPosts}">
-        <p th:text="${post.message_body}"></p>
-        <p th:text="${post.num_of+comments + ' comments ' + post.num_of_likes + ' likes'}"></p>
+        <p th:text="${post.messageBody}"></p>
+        <p th:text="${post.comments.size() + ' comments ' + post.likes.size() + ' likes'}"></p>
 
-        <form action="#" th:action="@{/editpost/{id}(id=${post.post_id})}" method="post">
-            <textarea rows="1" cols="100" name="message_body" placeholder="Edit post..."></textarea>
+        <form action="#" th:action="@{/editpost/{id}(id=${post.postId})}" th:object="post" method="post">
+            <textarea rows="1" cols="100" name="messageBody" placeholder="Edit post..."></textarea>
 
             <p><input type="submit" value="Edit" style="padding: 5px 10px;"></p>
         </form>
 
-        <a th:href="@{/deletepost/{id}(id=${post.post_id})}">Delete Post</a>
+
+        <a th:href="@{/deletepost/{id}(id=${post.postId})}">Delete Post</a>
         <br>
     </div>
 

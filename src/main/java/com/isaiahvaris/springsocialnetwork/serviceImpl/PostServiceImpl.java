@@ -31,9 +31,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post editPost(Post post, String message_body) {
+    public Post editPost(Post post, String messageBody) {
 
-        post.setMessage_body(message_body);
+        post.setMessageBody(messageBody);
 
         return postRepository.save(post);
     }
