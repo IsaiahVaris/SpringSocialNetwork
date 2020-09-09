@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
     Optional<User> findByEmail(String email);
-    Optional<User> findByEmailAndPass_word(String email, String pass_word);
+    Optional<User> findByEmailAndPassWord(String email, String passWord);
 
 
     Boolean deleteUserByEmail(String email);

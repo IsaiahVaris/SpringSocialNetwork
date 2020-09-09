@@ -17,18 +17,14 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int post_id;
-
+    private int postId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-
-
-
     @NotBlank(message = "First name is required")
-    private String message_body;
+    private String messageBody;
 
 //    @Column(defaultValue = {@UniqueConstraint(columnNames = {"user_id", "post_id"})})
 //    private int num_of_comments = 0;

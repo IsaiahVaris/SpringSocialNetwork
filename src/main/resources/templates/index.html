@@ -2,68 +2,33 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>The Social Network</title>
 </head>
 <body>
 
 <h2>This is the Social Network</h2>
-<div><a href="./profile"><b>Profile</b></a></div>
+<div><a th:href="@{/profile}"><b>Profile</b></a></div>
 <div><a th:href="@{/logout}"><b>Logout</b></a></div>
 
-<form action="./newpost" method="post">
+<form action="#" th:action="@{/newpost}" method="post">
     <textarea rows="4" cols="100" name="message_body" placeholder="Share your thoughts..."></textarea>
     <p><input type="submit" value="Post" style="padding: 5px 10px;"></p>
 </form>
 
-<div th:each="post: ${allPosts}">
-    <tr>
-    <td th:text="${post.message_body}" />
-    </tr>
-<tr>
-    <td th:text="${post.num_of_comments}" />
-    <td th:text="${post.num_of_likes}" />
-</tr>
+<div th:each="post: ${allposts}">
 
-<tr>
-    <form action="./newcomment?post_id=${post.post_id}" method="post">
+    <p th:text="${post.messageBody}"></p>
+    <p th:text="${post.comments.size() + ' comments ' + post.likes.size() + ' likes'}"></p>
+
+    <form action="#"  th:action="@{/newcomment/{id}(id=${post.post_id})}"  method="post">
         <textarea rows="2" cols="100" name="comment_body" placeholder="Add comment..."></textarea>
         <p><input type="submit" value="Comment" style="padding: 5px 10px;"></p>
     </form>
 
+    <p><a th:href="@{/likepost/{id}(id=${post.postId})}">Like</a> <a th:href="@{/unlikepost/{id}(id=${post.postId})}">Unlike</a></p>
 
-
-
-    <p><a href="./likepost?post_id=${post.post_id}">Like</a> <a href="./unlikepost?post_id=${post.post_id}">Unlike</a></p>
-    <a href="">View comments</a>
-
-</tr>
-
+    <a th:href="@{/comments}">View comments</a>
 </div>
-
-
-
-<c:forEach var="post" items="${allPosts}">
-    <div>
-        <p><c:out value="${post.message_body}"></c:out></p>
-
-        <p><c:out value="${post.num_of_comments}"></c:out> comments <c:out value="${post.num_of_likes}"></c:out> likes</p>
-
-
-
-
-
-        <form action="./newcomment?post_id=${post.post_id}" method="post">
-            <textarea rows="2" cols="100" name="comment_body" placeholder="Add comment..."></textarea>
-            <p><input type="submit" value="Comment" style="padding: 5px 10px;"></p>
-        </form>
-
-
-
-
-        <p><a href="./likepost?post_id=${post.post_id}">Like</a> <a href="./unlikepost?post_id=${post.post_id}">Unlike</a></p>
-    </div>
-</c:forEach>
-
 
 </body>
 </html>

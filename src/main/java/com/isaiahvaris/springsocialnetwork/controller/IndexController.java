@@ -11,6 +11,7 @@ public class IndexController {
     @Autowired
     UserServiceImpl userService;
 
+
     @GetMapping("/")
     public String showUsers(Model model) {
         model.addAttribute("users", userService.getUsers());

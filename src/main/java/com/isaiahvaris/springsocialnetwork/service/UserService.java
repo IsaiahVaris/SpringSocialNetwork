@@ -10,6 +10,8 @@ public interface UserService  {
     Iterable<User> getUsers ();
     Optional<User> getUserById(int id);
     Optional<User> getUserByEmail(String email);
+
+    Optional<User> getUserByEmailandPassWord(String email, String passWord);
     void deleteUser(User user);
 
 }

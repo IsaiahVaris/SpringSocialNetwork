@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> getUserByEmailandPassWord(String email, String passWord) {
+        return userRepository.findByEmailAndPassWord(email, passWord);
+    }
+
+    @Override
     public void deleteUser(User user) {
          userRepository.delete(user);
     }

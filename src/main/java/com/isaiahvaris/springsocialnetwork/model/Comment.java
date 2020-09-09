@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int comment_id;
+    private int commentId;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -23,5 +23,5 @@ public class Comment {
     private Post post;
 
     @NotBlank(message = "comment body is required")
-    private String comment_body;
+    private String commentBody;
 }

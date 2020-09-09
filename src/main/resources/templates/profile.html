@@ -22,21 +22,19 @@
 </div>
 <!--<%&#45;&#45;user profile consists of all posts by the individual user with option to edit and delete post&#45;&#45;%>-->
 
-<c:forEach var="post" items="${allUserPosts}">
-    <div>
-        <c:out value="${post.message_body}"></c:out>
-        <p><c:out value="${post.num_of_comments}"></c:out> comments <c:out value="${post.num_of_likes}"></c:out> likes</p>
+    <div th:each="post : ${allUserPosts}">
+        <p th:text="${post.message_body}"></p>
+        <p th:text="${post.num_of+comments + ' comments ' + post.num_of_likes + ' likes'}"></p>
 
-        <form action="./editpost?post_id=${post.post_id}" method="post">
+        <form action="#" th:action="@{/editpost/{id}(id=${post.post_id})}" method="post">
             <textarea rows="1" cols="100" name="message_body" placeholder="Edit post..."></textarea>
 
             <p><input type="submit" value="Edit" style="padding: 5px 10px;"></p>
         </form>
 
-        <a href="./deletepost?post_id=${post.post_id}">Delete Post</a>
+        <a th:href="@{/deletepost/{id}(id=${post.post_id})}">Delete Post</a>
         <br>
     </div>
-</c:forEach>
 
 </body>
 </html>

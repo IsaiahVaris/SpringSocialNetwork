@@ -16,7 +16,7 @@ public class Like implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int like_id;
+    private int likeId;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

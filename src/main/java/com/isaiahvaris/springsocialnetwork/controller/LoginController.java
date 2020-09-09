@@ -23,7 +23,7 @@ public class LoginController {
 //    }
 
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     public String signUpForm(User user) {
         return "register";
     }
@@ -62,6 +62,6 @@ public class LoginController {
             return "register";
         }
         userService.addUser(user);
-        return "redirect:/";
+        return "login";
     }
 }
