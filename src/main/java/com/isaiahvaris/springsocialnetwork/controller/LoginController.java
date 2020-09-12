@@ -1,58 +1,62 @@
 package com.isaiahvaris.springsocialnetwork.controller;
 
 import com.isaiahvaris.springsocialnetwork.model.User;
-import com.isaiahvaris.springsocialnetwork.serviceImpl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.isaiahvaris.springsocialnetwork.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Controller
+@RequestMapping("/auth")
 public class LoginController {
-    @Autowired
-    UserServiceImpl userService;
-    public static User currentUser;
+    private UserService userService;
 
-    @GetMapping("/register")
-    public String signUpForm(User user) {
-        return "register";
+    public LoginController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/login")
-    public String login(User user) {
+    public String login(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("invalid", null);
+        model.addAttribute("newregistration", null);
+
         return "login";
     }
 
-    @PostMapping("/loginuser")
-    public String loginUser(User user, HttpSession session){
-        User user1 = userService.getUserByEmailandPassWord(user.getEmail(), user.getPassWord()).get();
-        if(user1 != null ) {
-            session.setAttribute("user", user);
-            currentUser = user1;
-            return "index";
+    @PostMapping("/login")
+    public String login (HttpSession session, @Valid User user, Model model) {
+        User gottenUser;
+
+        gottenUser = userService.getUserByEmail(user.getEmail());
+        if (gottenUser == null) {
+            //error message if email does not exist in database
+            model.addAttribute("invalid", "User does not exist. Check login details or register.");
+            return "login";
         }
-        return "login";
-    }
 
-    @PostMapping("/logout")
-    public String logoutUser() {
-        currentUser = null;
-        return "login";
-    }
-
-    @PostMapping("adduser")
-    public String addUser(@ModelAttribute(name = "user") User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "register";
+        gottenUser = userService.getUserByEmailandPassWord(user.getEmail(), user.getPassWord());
+        if (gottenUser == null) {
+            //error message if email exists but wrong password provided
+            model.addAttribute("invalid", "Incorrect password");
+            return "login";
         }
-        userService.addUser(user);
+        session.setAttribute("user", gottenUser);
         return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model, HttpSession session) {
+        if (session != null) {
+            session.invalidate();
+        }
+        model.addAttribute("user", new User());
+        model.addAttribute("invalid", null);
+        return "login";
     }
 }

@@ -11,17 +11,21 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "likes")
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "post_id"})})
+//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user", "post"})})
 public class Like implements Serializable {
 
+    /*
+    Post entity fields/columns
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int likeId;
+    /*
+    Like has a many to one relationship with user and post
+     */
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
-    @JoinColumn(name = "post_id")
     private Post post;
 }
 

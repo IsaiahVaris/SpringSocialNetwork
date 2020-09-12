@@ -14,34 +14,35 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    /*
+    Create new user
+     */
     @Override
     public void addUser(User user) {
         userRepository.save(user);
     }
 
     @Override
-    public Iterable<User> getUsers() {
-        return userRepository.findAll();
+    public User getUserById(int id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Optional<User> getUserById(int id) {
-        return userRepository.findById(id);
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
+    /*
+        Get user by email and password(login details)
+     */
+    @Override
+    public User getUserByEmailandPassWord(String email, String passWord) {
+        return userRepository.findByEmailAndPassWord(email, passWord).orElse(null);
     }
 
     @Override
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public Optional<User> getUserByEmailandPassWord(String email, String passWord) {
-        return userRepository.findByEmailAndPassWord(email, passWord);
-    }
-
-    @Override
-    public void deleteUser(User user) {
+    public boolean deleteUser(User user) {
          userRepository.delete(user);
+         return true;
     }
 
 }
