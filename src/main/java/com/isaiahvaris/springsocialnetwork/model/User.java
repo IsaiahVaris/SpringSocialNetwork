@@ -5,39 +5,39 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.sql.Date;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
 public class User {
+    /*
+    User entity fields/columns
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @NotBlank(message = "First name is required")
     private String firstName;
-    @NotBlank(message = "Last name is required")
     private String lastName;
-    @NotBlank(message = "email is required")
-    @Column(unique = true)
+    @Column(unique = true) //two users cannot have the same email
     private String email;
-    @NotBlank(message = "password is required")
     private String passWord;
-    @NotBlank(message = "gender is required")
     private String gender;
-    @NotBlank(message = "date of birth is required")
     private Date birthDay;
 
+    /*
+    Post has a one to many relationship with post, like and comment
+     */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Post> posts;
+    private List<Like> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Like> likes;
+    private List<Comment> comments = new ArrayList<>();
 
 }

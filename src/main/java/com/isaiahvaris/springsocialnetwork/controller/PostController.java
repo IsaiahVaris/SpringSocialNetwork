@@ -1,71 +1,90 @@
 package com.isaiahvaris.springsocialnetwork.controller;
 
 import com.isaiahvaris.springsocialnetwork.model.Comment;
+import com.isaiahvaris.springsocialnetwork.model.Like;
 import com.isaiahvaris.springsocialnetwork.model.Post;
 import com.isaiahvaris.springsocialnetwork.model.User;
-import com.isaiahvaris.springsocialnetwork.serviceImpl.PostServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.isaiahvaris.springsocialnetwork.service.CommentService;
+import com.isaiahvaris.springsocialnetwork.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
+@RequestMapping("/post")
 public class PostController {
-    @Autowired
-    PostServiceImpl postService;
+    CommentService commentService;
+    PostService postService;
 
-    @GetMapping("/")
-    public String showPosts(Model model) {
-        List<Post> posts = new ArrayList<>();
-        postService.getPosts().forEach(posts::add);
-        model.addAttribute("allposts", posts);
-        model.addAttribute("post", new Post());
-        model.addAttribute("comment", new Comment());
-        System.out.println("leaving post");
-        return "index";
+    public PostController(CommentService commentService, PostService postService) {
+        this.commentService = commentService;
+        this.postService = postService;
     }
 
-    @PostMapping("/profile")
-    public String showUserPosts(Model model) {
-
-        User user = LoginController.currentUser;
-        model.addAttribute("allUserPosts", postService.getPostsByUser(user));
-        model.addAttribute("post", new Post());
-
-        return "profile";
-    }
-
-    @PostMapping("/newpost")
-    public String newPost(@ModelAttribute(name = "post") Post post, BindingResult result, Model model) {
+    /*
+    New post from home page
+     */
+    @PostMapping("/new")
+    public String newPostIndex(HttpSession session, @Valid Post post) {
+        Object userObj = session.getAttribute("user");
+        if (userObj == null) return "redirect:/auth/login";
+        post.setUser((User) userObj);
         postService.addPost(post);
         return "redirect:/";
     }
-
-    @PostMapping("/editpost/{id}")
-    public String editPost(@PathVariable("id") int id, @ModelAttribute(name = "post") Post post, String messageBody, BindingResult result,
-                           Model model) {
-
-        postService.editPost(post, messageBody);
-        return "index";
+    /*
+    New post from profile page
+     */
+    @PostMapping("/profile/new")
+    public String newPostProfile(HttpSession session, @Valid Post post) {
+        Object userObj = session.getAttribute("user");
+        if (userObj == null) return "redirect:/auth/login";
+        post.setUser((User) userObj);
+        postService.addPost(post);
+        return "redirect:/profile";
     }
 
-    @PostMapping("/likepost/{id}")
-    public String likePost(@PathVariable("id") int id, @ModelAttribute(name = "post") Post post, BindingResult result,
-                           Model model) {
-        return "index";
+    //edit post
+    @PostMapping("/edit/{id}")
+    public String editPost(@PathVariable("id") int id, HttpSession session, @Valid Post postupdate) {
+        Object userObj = session.getAttribute("user");
+        if (userObj == null) return "redirect:/auth/login";
 
+        Post post = postService.getPostById(id);
+        postService.editPost(post, postupdate.getMessageBody());
+        return "redirect:/profile";
     }
 
-    @PostMapping("/deletepost/{id}")
-    public String deletePost(@PathVariable("id") int id, @ModelAttribute(name = "post") Post post, Model model) {
+    //delete post
+    @PostMapping("/delete/{id}")
+    public String deletePost(@PathVariable("id") int id, HttpSession session) {
+        Object userObj = session.getAttribute("user");
+        if (userObj == null) return "redirect:/auth/login";
 
+        Post post = postService.getPostById(id);
         postService.deletePost(post);
-        return "index";
+        return "redirect:/profile";
     }
+
+    //get mapping for single post page view
+    @GetMapping("/{id}")
+    public String viewPost(@PathVariable("id") int id, HttpSession session, Model model) {
+        Object userObj = session.getAttribute("user");
+        if (userObj == null) return "redirect:/auth/login";
+        Post post = postService.getPostById(id);
+
+        model.addAttribute("user", (User) userObj);
+        model.addAttribute("post", post);
+        model.addAttribute("comments", commentService.getPostComments(post));
+        model.addAttribute("newcomment", new Comment());
+        model.addAttribute("newlike", new Like());
+
+        return "post";
+    }
+
+
+
 }

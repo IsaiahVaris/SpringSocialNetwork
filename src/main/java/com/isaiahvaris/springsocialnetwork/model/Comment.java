@@ -12,14 +12,18 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Entity(name = "comments")
 public class Comment {
+    /*
+    Comment entity fields/columns
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int commentId;
+    /*
+    Comment has a many to one relationship with user and post
+     */
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
-    @JoinColumn(name = "post_id")
     private Post post;
 
     @NotBlank(message = "comment body is required")

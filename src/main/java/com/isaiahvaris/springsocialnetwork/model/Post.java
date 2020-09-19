@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,22 +15,27 @@ import java.util.List;
 @AllArgsConstructor
 @Entity(name = "posts")
 public class Post {
-
+    /*
+    Post entity fields/columns
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int postId;
 
+    //Post has a many to one relationship with user
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
     @NotBlank(message = "First name is required")
     private String messageBody;
 
+    /*
+    Post has a one to many relationship with like and comment
+     */
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Like> likes;
+    private List<Like> likes = new ArrayList<>();
 
 }

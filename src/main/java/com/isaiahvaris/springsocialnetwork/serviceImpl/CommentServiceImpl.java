@@ -14,18 +14,25 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentRepository commentRepository;
 
-
+    /*
+    Add comment to a post
+     */
     @Override
     public Comment addComment(Comment comment) {
-
         return commentRepository.save(comment);
     }
 
+    /*
+    Get all comments for a post
+     */
     @Override
     public List<Comment> getPostComments(Post post) {
         return commentRepository.findAllByPost(post);
     }
 
+    /*
+    Delete a comment
+     */
     @Override
     public void deleteComment(Comment comment) {
         commentRepository.delete(comment);
