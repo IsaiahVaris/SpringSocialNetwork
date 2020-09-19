@@ -28,14 +28,16 @@ public class IndexController {
     public String getPosts(Model model, HttpSession session) {
         Object userObj = session.getAttribute("user");
         if (userObj == null) return "redirect:/auth/login";
+
         model.addAttribute("user", (User) userObj);
+
         model.addAttribute("posts", postService.getPosts());
+
+
         model.addAttribute("newpost", new Post());
         model.addAttribute("newcomment", new Comment());
         model.addAttribute("newlike", new Like());
 
         return "index";
     }
-
-
 }

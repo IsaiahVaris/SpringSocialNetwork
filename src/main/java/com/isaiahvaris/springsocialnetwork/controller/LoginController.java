@@ -20,6 +20,7 @@ public class LoginController {
         this.userService = userService;
     }
 
+
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("user", new User());
@@ -55,8 +56,9 @@ public class LoginController {
         if (session != null) {
             session.invalidate();
         }
+
         model.addAttribute("user", new User());
         model.addAttribute("invalid", null);
-        return "login";
+        return "redirect:/auth/login";
     }
 }

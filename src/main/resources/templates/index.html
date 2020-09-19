@@ -43,6 +43,8 @@
     </div>
 
 
+
+
     <div th:each="post : ${posts}">
         <div class="row">
             <div class="col s12 m12">
@@ -56,6 +58,7 @@
                     </div>
                     <div class="card-action">
                         <p th:text="${post.getComments().size()} + ' Comments ' + ${post.getLikes().size()} + ' Likes'"></p>
+
                         <form method="post" th:object="${newlike}" th:action="@{/like/{id}(id=${post.getPostId()})}">
                             <button class="btn waves-effect blue-violet accent-3" type="submit" name="action">Like
                                 <i class="material-icons right"></i>

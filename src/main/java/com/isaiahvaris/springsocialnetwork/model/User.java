@@ -31,6 +31,7 @@ public class User {
     /*
     Post has a one to many relationship with post, like and comment
      */
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
