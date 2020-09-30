@@ -4,9 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-!target/springsocialnetwork-0.0.1-SNAPSHOT.jar
-!target/springsocialnetwork-0.0.1-SNAPSHOT.jar.original
-
 ### STS ###
 .apt_generated
 .classpath
